@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Nailstore Kezdőlap</title>
+	<style>
+		* {
+			margin: 0;
+			padding: 0;
+			box-sizing: border-box;
+		}
+
+		body {
+			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+			background-color: #fefefe;
+			color: #333;
+			line-height: 1.6;
+			min-height: 100vh;
+			padding-top: 70px;
+		}
+
+		#navbar {
+			background-color: #dcbbb3;
+			width: 100%;
+			padding: 15px 0;
+			position: fixed;
+			top: 0;
+			left: 0;
+			z-index: 1000;
+		}
+
+		nav {
+			max-width: 900px;
+			margin: 0 auto;
+			text-align: center;
+		}
+
+		nav a {
+			margin: 0 20px;
+			text-decoration: none;
+			color: white;
+			font-weight: 600;
+			font-size: 1.1rem;
+			transition: color 0.3s ease;
+		}
+
+		nav a:hover, nav a:focus {
+			color: #f0d6db;
+			outline: none;
+		}
+
+		main {
+			max-width: 900px;
+			margin: 0 auto;
+			padding: 20px 15px;
+			text-align: center;
+		}
+
+		h1 {
+			color: #4d4d4d;
+			margin-bottom: 25px;
+			font-weight: 700;
+			font-size: 2rem;
+			letter-spacing: 0.05em;
+		}
+	</style>
+</head>
+<body>
+<div id="navbar">
+	<nav>
+		<a href="/">Kezdőlap</a>
+		<a href="/termekek-oldal">Termékek</a>
+		<a href="/kapcsolat">Kapcsolat</a>
+		<a href="/kosar">Kosár</a>
+		<a href="/login">Bejelentkezés</a>
+	</nav>
+</div>
+<main>
+	<h1>Üdv a Nailstore webshopban!</h1>
+</main>
+</body>
+</html>
