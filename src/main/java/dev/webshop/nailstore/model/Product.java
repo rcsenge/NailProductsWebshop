@@ -18,8 +18,17 @@ public class Product {
 
 	private String name;
 
+	private String slug;
+
 	@Column(name = "image_file")
 	private String imageFile;
 
 	private int price;
+
+	@Lob
+	private String description;
+
+	@ManyToOne
+	@JoinColumn(name = "category_id")
+	private Category category;
 }
