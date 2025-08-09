@@ -138,12 +138,16 @@
 
 		<div class="col-md-6">
 			<h2 th:text="${product.name}">Termék neve</h2>
-			<p class="price fs-4 fw-bold" style="color: #b40061;" th:text="${product.price}+' Ft'">Ár</p>
+			<p class="price fs-4 fw-bold" style="color: #b40061;" th:text="${product.price} + ' Ft'">Ár</p>
 			<div class="description" th:utext="${product.description}">
 				Termék leírása
 			</div>
-			<a href="/kosar" style="background-color: #b40061; border-color: #b40061; " class="btn btn-primary mt-3">Kosárba
-				teszem</a>
+			<form th:action="@{/kosar/hozzaad/{productId}(productId=${product.id})}" method="post" class="d-flex align-items-center gap-2 mt-3">
+				<input type="number" name="quantity" min="1" value="1" class="form-control" style="width: 80px;" />
+				<button type="submit" class="btn btn-primary" style="background-color: #b40061; border-color: #b40061;">
+					Kosárba teszem
+				</button>
+			</form>
 		</div>
 	</div>
 </main>
