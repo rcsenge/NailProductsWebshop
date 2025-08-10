@@ -1,276 +1,469 @@
 <!DOCTYPE html>
-<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+í<html lang="hu" xmlns:th="http://www.thymeleaf.org" data-theme="cupcake">
 <head>
 	<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Termékek</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
 	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
+		:root {
+			--navbar-bg: #DDB5B0;
+			--accent-color: #C8969C;
+			--hover-color: #B8888F;
+			--pale-pink: #F2E5E3;
+			--dusty-pink: #E8D5D3;
+			--soft-pink: #EDDBDA;
+			--text-dark: #4A4A4A;
 		}
 
 		body {
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background-color: #fefefe;
-			color: #333;
-			line-height: 1.6;
-			min-height: 100vh;
-			padding-top: 70px;
+			background-color: #FAFAFA;
 		}
 
-		#navbar {
-			background-color: #dcbbb3;
-			width: 100%;
-			padding: 15px 0;
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: 1000;
+		.custom-navbar {
+			background-color: var(--navbar-bg);
+			box-shadow: 0 2px 12px rgba(221, 181, 176, 0.2);
 		}
 
-		nav {
-			max-width: 900px;
-			margin: 0 auto;
-			text-align: center;
-		}
-
-		nav a {
-			margin: 0 20px;
-			text-decoration: none;
+		.custom-navbar .navbar-center a {
 			color: white;
-			font-weight: 600;
-			font-size: 1.1rem;
-			transition: color 0.3s ease;
+			font-weight: 500;
+			font-size: 1rem;
+			transition: all 0.3s ease;
+			padding: 0.75rem 1.25rem;
+			border-radius: 6px;
 		}
 
-		nav a:hover, nav a:focus {
-			color: #f0d6db;
-			outline: none;
-		}
-
-		main {
-			max-width: 900px;
-			margin: 0 auto;
-			padding: 20px 15px;
-			text-align: center;
-		}
-
-		h1 {
-			color: #4d4d4d;
-			margin-bottom: 25px;
-			font-weight: 700;
-			font-size: 2rem;
-			letter-spacing: 0.05em;
-		}
-
-		ul.product-list li {
-			background-color: #fff;
-			margin-bottom: 15px;
-			padding: 18px 25px;
-			border-radius: 10px;
-			box-shadow: 0 2px 5px rgba(180, 60, 70, 0.15);
-			font-size: 1.15rem;
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			transition: background-color 0.3s ease;
-		}
-
-		ul.product-list li:hover {
-			background-color: #fce4e8;
-		}
-
-
-		@media (max-width: 480px) {
-			nav a {
-				margin: 0 10px;
-				font-size: 1rem;
-			}
-
-			ul.product-list li {
-				flex-direction: column;
-				align-items: flex-start;
-				gap: 5px;
-				font-size: 1rem;
-				padding: 15px 20px;
-			}
-		}
-
-		.product-grid {
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-			gap: 20px;
-			margin-top: 20px;
+		.custom-navbar .navbar-center a:hover {
+			background-color: rgba(255, 255, 255, 0.15);
+			transform: translateY(-1px);
 		}
 
 		.product-card {
-			background-color: #fff;
-			border-radius: 15px;
-			box-shadow: 0 4px 12px rgba(180, 60, 70, 0.15);
-			padding: 15px;
-			text-align: center;
-			transition: transform 0.3s ease, box-shadow 0.3s ease;
+			background-color: white;
+			border: 1px solid rgba(200, 150, 156, 0.15);
+			transition: all 0.3s ease;
+			box-shadow: 0 2px 8px rgba(200, 150, 156, 0.08);
 		}
 
 		.product-card:hover {
-			transform: translateY(-5px);
-			box-shadow: 0 6px 16px rgba(180, 60, 70, 0.25);
+			transform: translateY(-4px);
+			box-shadow: 0 8px 25px rgba(200, 150, 156, 0.15);
+			border-color: rgba(200, 150, 156, 0.3);
 		}
 
 		.product-card img {
-			width: 100%;
-			max-height: 200px;
-			object-fit: contain;
-			border-radius: 10px;
-			margin-bottom: 15px;
+			transition: transform 0.3s ease;
 		}
 
-		.product-card h2 {
-			font-size: 1.1rem;
-			margin-bottom: 8px;
-			color: #444;
+		.product-card:hover img {
+			transform: scale(1.02);
 		}
 
-		.product-card p {
-			font-size: 1rem;
-			color: #777;
-			font-weight: bold;
+		.search-bar {
+			background-color: white;
+			border: 1px solid rgba(200, 150, 156, 0.2);
+			box-shadow: 0 2px 8px rgba(200, 150, 156, 0.08);
 		}
 
-		.search-form {
-			display: flex;
-			justify-content: center;
-			margin: 25px auto;
-			max-width: 500px;
+		.filter-chip {
+			background-color: white;
+			border: 1px solid var(--accent-color);
+			color: var(--accent-color);
+			transition: all 0.3s ease;
 		}
 
-		.search-input {
-			flex: 1;
-			padding: 12px 16px;
-			border: 2px solid #dcbbb3;
-			border-radius: 10px 0 0 10px;
-			font-size: 1rem;
-			outline: none;
-			transition: border-color 0.3s;
+		.filter-chip:hover {
+			background-color: var(--pale-pink);
+			border-color: var(--hover-color);
+			color: var(--hover-color);
 		}
 
-		.search-input:focus {
-			border-color: #c38b83;
+		.filter-chip.active {
+			background-color: var(--accent-color);
+			color: white;
+			border-color: var(--accent-color);
+		}
+
+		.sidebar-card {
+			background-color: white;
+			border: 1px solid rgba(200, 150, 156, 0.15);
+			box-shadow: 0 2px 12px rgba(200, 150, 156, 0.08);
+		}
+
+		.category-link {
+			color: var(--text-dark);
+			transition: all 0.3s ease;
+		}
+
+		.category-link:hover {
+			color: var(--hover-color);
+			background-color: var(--pale-pink);
+			transform: translateX(4px);
+		}
+
+		.hero-title {
+			color: var(--text-dark);
+			text-shadow: 0 2px 4px rgba(200, 150, 156, 0.2);
+		}
+
+		.fade-in {
+			animation: fadeIn 0.6s ease-out;
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(15px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.price-tag {
+			color: var(--accent-color);
+			font-weight: 600;
+		}
+
+		.btn-primary {
+			background-color: var(--accent-color);
+			border-color: var(--accent-color);
+			color: white;
+		}
+
+		.btn-primary:hover {
+			background-color: var(--hover-color);
+			border-color: var(--hover-color);
+			transform: translateY(-1px);
 		}
 
 		.search-button {
-			background-color: #dcbbb3;
-			border: none;
-			padding: 12px 20px;
-			color: white;
-			font-size: 1rem;
-			font-weight: 600;
-			border-radius: 0 10px 10px 0;
-			cursor: pointer;
-			transition: background-color 0.3s;
+			background-color: var(--accent-color);
+			border-color: var(--accent-color);
+			transition: all 0.3s ease;
 		}
 
 		.search-button:hover {
-			background-color: #c38b83;
+			background-color: var(--hover-color);
+			border-color: var(--hover-color);
 		}
 
-		.content-container {
-			gap: 40px;
-			justify-content: center;
+		.input:focus, .select:focus {
+			border-color: var(--accent-color);
+			box-shadow: 0 0 0 2px rgba(200, 150, 156, 0.1);
+		}
+
+		.title-decoration {
+			width: 60px;
+			height: 2px;
+			background-color: var(--accent-color);
+			margin: 0 auto;
+			opacity: 0.7;
+		}
+
+		.loading-indicator {
+			opacity: 0;
+			transition: opacity 0.3s ease;
+		}
+
+		.loading-indicator.show {
+			opacity: 1;
 		}
 
 		@media (max-width: 768px) {
-			.content-container {
-				flex-direction: column;
-				align-items: center;
+			.sidebar-mobile {
+				position: fixed;
+				top: 0;
+				left: -100%;
+				width: 280px;
+				height: 100vh;
+				z-index: 1001;
+				transition: left 0.3s ease;
+				background: white;
+				padding-top: 80px;
+				box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+			}
+
+			.sidebar-mobile.open {
+				left: 0;
+			}
+
+			.sidebar-overlay {
+				position: fixed;
+				top: 0;
+				left: 0;
+				width: 100%;
+				height: 100%;
+				background: rgba(0, 0, 0, 0.4);
+				z-index: 1000;
+				display: none;
+			}
+
+			.sidebar-overlay.show {
+				display: block;
 			}
 		}
-		.sidebar {
-			flex-shrink: 0;
-			width: 220px;
-			top: 90px;
-			align-self: flex-start;
-			background-color: #fff;
-			border-radius: 12px;
-			box-shadow: 0 2px 10px rgba(180, 60, 70, 0.1);
-			padding: 20px;
-			margin-right: auto;
+
+		.product-link {
+			color: var(--text-dark);
+			transition: color 0.3s ease;
 		}
 
-		.sidebar h3 {
-			margin-bottom: 15px;
-			font-size: 1.2rem;
-			color: #4d4d4d;
-		}
-
-		.categories {
-			list-style: none;
-			padding: 0;
-		}
-
-		.categories li {
-			margin-bottom: 10px;
-		}
-
-		.categories a {
-			color: #c38b83;
-			text-decoration: none;
-			font-weight: 600;
-			transition: color 0.3s;
-		}
-
-		.categories a:hover {
-			color: #a7675f;
+		.product-link:hover {
+			color: var(--accent-color);
 		}
 	</style>
-	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
 </head>
-<body>
-<div id="navbar">
-	<nav>
-		<a href="/">Kezdőlap</a>
-		<a href="/termekek-oldal">Termékek</a>
-		<a href="/kapcsolat">Kapcsolat</a>
-		<a href="/kosar">Kosár</a>
-		<a href="/login">Bejelentkezés</a>
-	</nav>
+<body class="min-h-screen">
+<div class="navbar custom-navbar fixed top-0 z-50 px-4">
+	<div class="navbar-start lg:hidden">
+		<button class="btn btn-ghost btn-circle text-white" onclick="toggleSidebar()">
+			<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+				<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+			</svg>
+		</button>
+	</div>
+
+	<div class="navbar-center mx-auto max-w-4xl flex gap-1">
+		<a href="/" class="btn btn-ghost">Kezdőlap</a>
+		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
+		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
+		<a href="/kosar" class="btn btn-ghost">Kosár</a>
+		<a href="/login" class="btn btn-ghost">Bejelentkezés</a>
+	</div>
 </div>
 
-<main>
-	<h1>Termékek listája</h1>
-	<form method="get" th:action="@{/termekek/kereses}" class="search-form">
-		<input type="text" name="search" placeholder="Keresés terméknévre..." th:value="${search}" class="search-input">
-		<button type="submit" class="search-button">
-			🔍 Keresés
-		</button>
-	</form>
+<div class="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-		<div class="sidebar">
-			<h3>Kategóriák:</h3>
-			<ul class="categories">
-				<li th:each="category : ${categories}">
-					<a th:href="@{/termekek-oldal/kategoriak/{slug}(slug=${category.slug})}"
-						 th:text="${category.name}">
-					</a>
-				</li>
-			</ul>
+<main class="pt-24 pb-12 px-4">
+	<div class="max-w-7xl mx-auto">
+		<div class="text-center mb-12 fade-in">
+			<h1 class="text-4xl md:text-5xl font-bold hero-title mb-4">
+				Termékek
+			</h1>
+			<div class="title-decoration"></div>
 		</div>
 
-	<div class="content-container">
-		<div class="product-grid">
-			<div class="product-card" th:each="product : ${products}">
-				<img th:src="${'/images/products/' + product.imageFile}" alt="Termék képe" />
-				<h2>
-					<a th:href="@{/termekek-oldal/{slug}(slug=${product.slug})}"
-						 th:text="${product.name}"></a>
-				</h2>
-				<p><span th:text="${product.price}">Ár</span> Ft</p>
+		<div class="search-bar rounded-xl p-6 mb-8 fade-in">
+			<form method="get" th:action="@{/termekek-oldal/kereses}" id="searchForm">
+				<div class="flex flex-col lg:flex-row gap-4 mb-6">
+					<div class="flex-1">
+						<div class="join w-full">
+							<div class="relative flex-1">
+								<input
+										type="text"
+										name="search"
+										id="searchInput"
+										placeholder="Keresés terméknévre..."
+										th:value="${search}"
+										class="input input-bordered join-item w-full"
+								/>
+								<div class="loading-indicator absolute right-3 top-1/2 transform -translate-y-1/2">
+									<svg class="animate-spin h-5 w-5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+										<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+										<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+									</svg>
+								</div>
+							</div>
+							<button type="submit" class="btn join-item search-button text-white">
+								<svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+								</svg>
+								Keresés
+							</button>
+						</div>
+					</div>
+
+					<div class="form-control w-full max-w-xs">
+						<select name="sortBy" id="sortSelect" class="select select-bordered">
+							<option value="nameAsc" th:selected="${sortBy == 'nameAsc'}">Név szerint növekvő</option>
+							<option value="nameDesc" th:selected="${sortBy == 'nameDesc'}">Név szerint csökkenő</option>
+							<option value="priceAsc" th:selected="${sortBy == 'priceAsc'}">Ár szerint növekvő</option>
+							<option value="priceDesc" th:selected="${sortBy == 'priceDesc'}">Ár szerint csökkenő</option>
+						</select>
+					</div>
+				</div>
+
+				<div class="flex flex-wrap gap-3 justify-center" th:if="${allTags}">
+					<div th:each="tag : ${allTags}">
+						<label class="filter-chip rounded-full px-4 py-2 cursor-pointer text-sm font-medium"
+									 th:classappend="${tags != null and tags.contains(tag.name)} ? 'active' : ''">
+							<input type="checkbox"
+										 name="tags"
+										 th:value="${tag.name}"
+										 th:checked="${tags != null and tags.contains(tag.name)}"
+										 class="hidden tag-checkbox">
+							<span th:text="${tag.name}"></span>
+						</label>
+					</div>
+				</div>
+			</form>
+		</div>
+
+		<div class="flex flex-col lg:flex-row gap-8">
+			<aside class="hidden lg:block w-64 flex-shrink-0">
+				<div class="sidebar-card rounded-xl p-6 shadow-sm sticky top-32">
+					<h3 class="text-lg font-semibold mb-6 text-gray-700">Kategóriák</h3>
+					<ul class="space-y-2">
+						<li th:each="category : ${categories}">
+							<a th:href="@{/termekek-oldal/kategoriak/{slug}(slug=${category.slug})}"
+								 th:text="${category.name}"
+								 class="category-link block py-3 px-3 rounded-lg text-sm transition-all duration-300">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</aside>
+
+			<aside class="sidebar-mobile lg:hidden">
+				<div class="p-6">
+					<div class="flex justify-between items-center mb-6">
+						<h3 class="text-lg font-semibold text-gray-700">Kategóriák</h3>
+						<button class="btn btn-ghost btn-sm btn-circle" onclick="toggleSidebar()">
+							<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+							</svg>
+						</button>
+					</div>
+					<ul class="space-y-2">
+						<li th:each="category : ${categories}">
+							<a th:href="@{/termekek-oldal/kategoriak/{slug}(slug=${category.slug})}"
+								 th:text="${category.name}"
+								 class="category-link block py-3 px-3 rounded-lg text-sm transition-all duration-300"
+								 onclick="toggleSidebar()">
+							</a>
+						</li>
+					</ul>
+				</div>
+			</aside>
+
+			<div class="flex-1">
+				<div id="productsContainer" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+					<div class="product-card card shadow-sm rounded-xl overflow-hidden fade-in"
+							 th:each="product : ${products}">
+						<figure class="px-4 pt-4">
+							<img th:src="${'/images/products/' + product.imageFile}"
+									 alt="Termék képe"
+									 class="rounded-lg w-full h-48 object-cover" />
+						</figure>
+
+						<div class="card-body items-center text-center p-4">
+							<h2 class="card-title text-base mb-3 text-center">
+								<a th:href="@{/termekek-oldal/{slug}(slug=${product.slug})}"
+									 th:text="${product.name}"
+									 class="product-link">
+								</a>
+							</h2>
+
+							<div class="flex items-center justify-center gap-1 mb-4">
+								<span class="price-tag text-lg font-semibold" th:text="${product.price}">Ár</span>
+								<span class="text-sm text-gray-500">Ft</span>
+							</div>
+
+							<div class="card-actions">
+								<a th:href="@{/termekek-oldal/{slug}(slug=${product.slug})}"
+									 class="btn btn-sm btn-primary">
+									Részletek
+								</a>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div th:if="${#lists.isEmpty(products)}" class="text-center py-16" id="emptyState">
+					<div class="max-w-md mx-auto">
+						<svg class="w-20 h-20 mx-auto text-gray-300 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+							<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+						</svg>
+						<h3 class="text-xl font-semibold text-gray-600 mb-2">Nincsenek termékek</h3>
+						<p class="text-gray-500">Próbáld meg módosítani a keresési feltételeket.</p>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </main>
 
+<script>
+	let searchTimeout;
+	const searchInput = document.getElementById('searchInput');
+	const sortSelect = document.getElementById('sortSelect');
+	const tagCheckboxes = document.querySelectorAll('.tag-checkbox');
+	const loadingIndicator = document.querySelector('.loading-indicator');
+	const productsContainer = document.getElementById('productsContainer');
+	const searchForm = document.getElementById('searchForm');
+
+	function showLoading() {
+		loadingIndicator.classList.add('show');
+	}
+
+	function hideLoading() {
+		loadingIndicator.classList.remove('show');
+	}
+
+	function submitFormWithDelay() {
+		clearTimeout(searchTimeout);
+		showLoading();
+
+		searchTimeout = setTimeout(() => {
+			searchForm.submit();
+		}, 500); // 500ms delay to avoid too many requests
+	}
+
+	// Real-time search on input
+	searchInput.addEventListener('input', function() {
+		submitFormWithDelay();
+	});
+
+	// Instant change on sort
+	sortSelect.addEventListener('change', function() {
+		showLoading();
+		searchForm.submit();
+	});
+
+	function toggleSidebar() {
+		const sidebar = document.querySelector('.sidebar-mobile');
+		const overlay = document.querySelector('.sidebar-overlay');
+
+		if (sidebar.classList.contains('open')) {
+			sidebar.classList.remove('open');
+			overlay.classList.remove('show');
+		} else {
+			sidebar.classList.add('open');
+			overlay.classList.add('show');
+		}
+	}
+
+	// Auto-submit form when filter chips are clicked
+	document.addEventListener('DOMContentLoaded', function() {
+		tagCheckboxes.forEach(checkbox => {
+			checkbox.addEventListener('change', function() {
+				// Update the visual state immediately
+				const label = this.closest('label');
+				if (this.checked) {
+					label.classList.add('active');
+				} else {
+					label.classList.remove('active');
+				}
+
+				// Submit the form with loading
+				showLoading();
+				searchForm.submit();
+			});
+		});
+
+		const urlParams = new URLSearchParams(window.location.search);
+		const sortBy = urlParams.get('sortBy');
+		if (sortBy) {
+			sortSelect.value = sortBy;
+		}
+
+		// Hide loading when page loads
+		hideLoading();
+	});
+
+	// Hide loading indicator when page is about to unload
+	window.addEventListener('beforeunload', function() {
+		hideLoading();
+	});
+</script>
 </body>
 </html>

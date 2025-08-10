@@ -14,4 +14,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	Optional<Product> findBySlug(String slug);
 
 	Optional<List<Product>> getProductsByCategory_Id(Long categoryId);
+
+	List<Product> findDistinctByTags_NameIn(List<String> tagNames);
 }

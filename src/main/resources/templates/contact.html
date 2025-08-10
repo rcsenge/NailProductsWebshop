@@ -1,108 +1,394 @@
 <!DOCTYPE html>
-<html lang="hu" xmlns:th="http://www.thymeleaf.org">
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" data-theme="cupcake">
 <head>
 	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Kapcsolat</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
 	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
+		:root {
+			--navbar-bg: #DDB5B0;
+			--accent-color: #C8969C;
+			--hover-color: #B8888F;
+			--pale-pink: #F2E5E3;
+			--dusty-pink: #E8D5D3;
+			--soft-pink: #EDDBDA;
+			--text-dark: #4A4A4A;
 		}
 
 		body {
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background-color: #fefefe;
-			color: #333;
-			line-height: 1.6;
-			min-height: 100vh;
-			padding-top: 70px;
+			background-color: #FAFAFA;
 		}
 
-		#navbar {
-			background-color: #dcbbb3;
-			width: 100%;
-			padding: 15px 0;
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: 1000;
+		.custom-navbar {
+			background-color: var(--navbar-bg);
+			box-shadow: 0 2px 12px rgba(221, 181, 176, 0.2);
 		}
 
-		nav {
-			max-width: 900px;
-			margin: 0 auto;
-			text-align: center;
-		}
-
-		nav a {
-			margin: 0 20px;
-			text-decoration: none;
+		.custom-navbar .navbar-center a {
 			color: white;
-			font-weight: 600;
-			font-size: 1.1rem;
-			transition: color 0.3s ease;
+			font-weight: 500;
+			font-size: 1rem;
+			transition: all 0.3s ease;
+			padding: 0.75rem 1.25rem;
+			border-radius: 6px;
 		}
 
-		nav a:hover, nav a:focus {
-			color: #f0d6db;
-			outline: none;
+		.custom-navbar .navbar-center a:hover {
+			background-color: rgba(255, 255, 255, 0.15);
+			transform: translateY(-1px);
 		}
 
-		main {
-			max-width: 900px;
+		.contact-card {
+			background-color: white;
+			border: 1px solid rgba(200, 150, 156, 0.15);
+			box-shadow: 0 2px 12px rgba(200, 150, 156, 0.08);
+		}
+
+		.hero-title {
+			color: var(--text-dark);
+			text-shadow: 0 2px 4px rgba(200, 150, 156, 0.2);
+		}
+
+		.fade-in {
+			animation: fadeIn 0.6s ease-out;
+		}
+
+		@keyframes fadeIn {
+			from { opacity: 0; transform: translateY(15px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.btn-primary {
+			background-color: var(--accent-color);
+			border-color: var(--accent-color);
+			color: white;
+		}
+
+		.btn-primary:hover {
+			background-color: var(--hover-color);
+			border-color: var(--hover-color);
+			transform: translateY(-1px);
+		}
+
+		.input:focus, .textarea:focus {
+			border-color: var(--accent-color);
+			box-shadow: 0 0 0 2px rgba(200, 150, 156, 0.1);
+		}
+
+		.title-decoration {
+			width: 60px;
+			height: 2px;
+			background-color: var(--accent-color);
 			margin: 0 auto;
-			padding: 20px 15px;
-			text-align: center;
+			opacity: 0.7;
 		}
 
-		h1 {
-			color: #4d4d4d;
-			margin-bottom: 25px;
-			font-weight: 700;
-			font-size: 2rem;
-			letter-spacing: 0.05em;
-			text-align: center;
+		.form-input {
+			border: 1px solid rgba(200, 150, 156, 0.2);
+			transition: all 0.3s ease;
 		}
 
-		p {
-			text-align: center;
+		.form-input:focus {
+			border-color: var(--accent-color);
+			box-shadow: 0 0 0 2px rgba(200, 150, 156, 0.1);
+		}
+
+		.info-card {
+			background: linear-gradient(135deg, var(--pale-pink) 0%, white 100%);
+			border: 1px solid rgba(200, 150, 156, 0.15);
+			transition: all 0.3s ease;
+		}
+
+		.info-card:hover {
+			transform: translateY(-2px);
+			box-shadow: 0 8px 25px rgba(200, 150, 156, 0.15);
+		}
+
+		.icon-wrapper {
+			background-color: var(--accent-color);
+			color: white;
+			width: 48px;
+			height: 48px;
+			border-radius: 12px;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		}
+
+		.success-message {
+			background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+			color: white;
+			border-radius: 12px;
+			animation: slideInFromTop 0.5s ease-out;
+		}
+
+		@keyframes slideInFromTop {
+			from { opacity: 0; transform: translateY(-20px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+
+		.form-section {
+			backdrop-filter: blur(10px);
+			background: rgba(255, 255, 255, 0.9);
+		}
+
+		@media (max-width: 768px) {
+			.contact-grid {
+				grid-template-columns: 1fr;
+			}
 		}
 	</style>
 </head>
-<body>
-<div id="navbar">
-	<nav>
-		<a href="/">Kezdőlap</a>
-		<a href="/termekek-oldal">Termékek</a>
-		<a href="/kapcsolat">Kapcsolat</a>
-		<a href="/kosar">Kosár</a>
-		<a href="/login">Bejelentkezés</a>
-	</nav>
+<body class="min-h-screen">
+<div class="navbar custom-navbar fixed top-0 z-50 px-4">
+	<div class="navbar-center mx-auto max-w-4xl flex gap-1">
+		<a href="/" class="btn btn-ghost">Kezdőlap</a>
+		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
+		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
+		<a href="/kosar" class="btn btn-ghost">Kosár</a>
+		<a href="/login" class="btn btn-ghost">Bejelentkezés</a>
+	</div>
 </div>
-<h1>Kapcsolat</h1>
-<form action="/kapcsolat-kuldes" method="post" style="max-width: 400px; margin: 0 auto;">
 
-	<div style="margin-bottom: 15px;">
-		<label for="name" style="display: block; font-weight: bold; margin-bottom: 5px;">Név:</label>
-		<input type="text" id="name" name="name" required style="width: 100%; padding: 8px;"/>
+<main class="pt-24 pb-12 px-4">
+	<div class="max-w-6xl mx-auto">
+		<div class="text-center mb-12 fade-in">
+			<h1 class="text-4xl md:text-5xl font-bold hero-title mb-4">
+				Kapcsolat
+			</h1>
+			<div class="title-decoration"></div>
+			<p class="text-lg text-gray-600 mt-6 max-w-2xl mx-auto">
+				Vedd fel velünk a kapcsolatot! Szívesen válaszolunk kérdéseidre és segítünk minden felmerülő problémában.
+			</p>
+		</div>
+
+		<div class="grid lg:grid-cols-2 gap-12 contact-grid">
+			<div class="fade-in">
+				<div class="contact-card rounded-xl p-8">
+					<h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+						Írj nekünk
+					</h2>
+
+					<div class="success-message p-4 mb-6 hidden" id="successMessage">
+						<div class="flex items-center gap-3">
+							<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+							</svg>
+							<span class="font-medium">Köszönjük az üzenetet! Hamarosan válaszolunk.</span>
+						</div>
+					</div>
+
+					<form action="/kapcsolat-kuldes" method="post" id="contactForm" class="space-y-6">
+						<div class="form-control">
+							<label class="label" for="name">
+								<span class="label-text font-medium text-gray-700">Név</span>
+								<span class="label-text-alt text-red-500">*</span>
+							</label>
+							<input type="text"
+										 id="name"
+										 name="name"
+										 required
+										 placeholder="Add meg a neved"
+										 class="form-input input input-bordered w-full" />
+						</div>
+
+						<div class="form-control">
+							<label class="label" for="email">
+								<span class="label-text font-medium text-gray-700">E-mail cím</span>
+								<span class="label-text-alt text-red-500">*</span>
+							</label>
+							<input type="email"
+										 id="email"
+										 name="email"
+										 required
+										 placeholder="pelda@email.com"
+										 class="form-input input input-bordered w-full" />
+						</div>
+
+						<div class="form-control">
+							<label class="label" for="message">
+								<span class="label-text font-medium text-gray-700">Üzenet</span>
+								<span class="label-text-alt text-red-500">*</span>
+							</label>
+							<textarea id="message"
+												name="message"
+												rows="5"
+												required
+												placeholder="Írd ide az üzeneted..."
+												class="form-input textarea textarea-bordered w-full resize-none"></textarea>
+						</div>
+
+						<div class="form-control mt-8">
+							<button type="submit" class="btn btn-primary btn-lg w-full">
+								<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+									<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+								</svg>
+								Üzenet küldése
+							</button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="fade-in space-y-6">
+				<div class="contact-card rounded-xl p-8">
+					<h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
+						Elérhetőségek
+					</h2>
+
+					<div class="space-y-6">
+						<div class="info-card rounded-xl p-6">
+							<div class="flex items-center gap-4">
+								<div class="icon-wrapper">
+									<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 4.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-semibold text-gray-800">E-mail</h3>
+									<p class="text-gray-600">info@webshop.hu</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="info-card rounded-xl p-6">
+							<div class="flex items-center gap-4">
+								<div class="icon-wrapper">
+									<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-semibold text-gray-800">Telefon</h3>
+									<p class="text-gray-600">+36 1 234 5678</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="info-card rounded-xl p-6">
+							<div class="flex items-center gap-4">
+								<div class="icon-wrapper">
+									<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-semibold text-gray-800">Cím</h3>
+									<p class="text-gray-600">1234 Budapest,<br>Példa utca 12.</p>
+								</div>
+							</div>
+						</div>
+
+						<div class="info-card rounded-xl p-6">
+							<div class="flex items-center gap-4">
+								<div class="icon-wrapper">
+									<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+									</svg>
+								</div>
+								<div>
+									<h3 class="font-semibold text-gray-800">Nyitvatartás</h3>
+									<p class="text-gray-600">H-P: 8:00 - 18:00<br>Sz: 9:00 - 16:00</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="contact-card rounded-xl p-8">
+					<h3 class="text-xl font-semibold text-gray-800 mb-4">
+						Gyakori kérdések
+					</h3>
+					<div class="space-y-3">
+						<details class="collapse collapse-arrow">
+							<summary class="collapse-title text-base font-medium">Mennyi a szállítási idő?</summary>
+							<div class="collapse-content">
+								<p class="text-gray-600">A szállítási idő általában 2-5 munkanap, attól függően, hogy mely területre szállítunk.</p>
+							</div>
+						</details>
+						<details class="collapse collapse-arrow">
+							<summary class="collapse-title text-base font-medium">Visszaküldhető egy termék?</summary>
+							<div class="collapse-content">
+								<p class="text-gray-600">Igen, 14 napon belül visszaküldhető minden termék eredeti állapotban.</p>
+							</div>
+						</details>
+						<details class="collapse collapse-arrow">
+							<summary class="collapse-title text-base font-medium">Milyen fizetési módokat fogadnak el?</summary>
+							<div class="collapse-content">
+								<p class="text-gray-600">Bankkártyás fizetést, átutalást és utánvétes fizetést is elfogadunk.</p>
+							</div>
+						</details>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
+</main>
 
-	<div style="margin-bottom: 15px;">
-		<label for="email" style="display: block; font-weight: bold; margin-bottom: 5px;">E-mail:</label>
-		<input type="email" id="email" name="email" required style="width: 100%; padding: 8px;"/>
-	</div>
+<script>
+	// Form submission handler
+	document.getElementById('contactForm').addEventListener('submit', function(e) {
+		e.preventDefault();
 
-	<div style="margin-bottom: 15px;">
-		<label for="message" style="display: block; font-weight: bold; margin-bottom: 5px;">Üzenet:</label>
-		<textarea id="message" name="message" rows="5" required style="width: 100%; padding: 8px;"></textarea>
-	</div>
+		// Show loading state
+		const submitBtn = this.querySelector('button[type="submit"]');
+		const originalText = submitBtn.innerHTML;
+		submitBtn.innerHTML = `
+			<svg class="animate-spin w-5 h-5 mr-2" fill="none" viewBox="0 0 24 24">
+				<circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+				<path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+			</svg>
+			Küldés...
+		`;
+		submitBtn.disabled = true;
 
-	<button type="submit"
-					style="padding: 10px 20px; background-color: #dcbbb3; border: none; color: white; font-weight: bold; cursor: pointer;">
-		Küldés
-	</button>
-</form>
+		// Simulate form submission (replace with actual submission)
+		setTimeout(() => {
+			// Show success message
+			document.getElementById('successMessage').classList.remove('hidden');
 
+			// Reset form
+			this.reset();
+
+			// Restore button
+			submitBtn.innerHTML = originalText;
+			submitBtn.disabled = false;
+
+			// Hide success message after 5 seconds
+			setTimeout(() => {
+				document.getElementById('successMessage').classList.add('hidden');
+			}, 5000);
+		}, 1500);
+
+		// In a real application, you would submit the form here:
+		// this.submit();
+	});
+
+	// Smooth animations for elements
+	document.querySelectorAll('.fade-in').forEach((element, index) => {
+		element.style.animationDelay = `${index * 0.1}s`;
+	});
+
+	// Form validation feedback
+	document.querySelectorAll('.form-input').forEach(input => {
+		input.addEventListener('blur', function() {
+			if (this.validity.valid) {
+				this.classList.remove('input-error');
+				this.classList.add('input-success');
+			} else {
+				this.classList.remove('input-success');
+				this.classList.add('input-error');
+			}
+		});
+
+		input.addEventListener('input', function() {
+			this.classList.remove('input-error', 'input-success');
+		});
+	});
+</script>
 </body>
 </html>
