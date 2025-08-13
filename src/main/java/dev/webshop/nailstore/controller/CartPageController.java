@@ -1,7 +1,6 @@
 package dev.webshop.nailstore.controller;
 
 import dev.webshop.nailstore.model.Cart;
-import dev.webshop.nailstore.model.CartItem;
 import dev.webshop.nailstore.model.Product;
 import dev.webshop.nailstore.repository.ProductRepository;
 import jakarta.servlet.http.HttpSession;
@@ -57,8 +56,8 @@ public class CartPageController {
 	public String removeFromCart(@PathVariable Long productId,
 															 Model model,
 															 HttpSession session
-	){
-			try {
+	) {
+		try {
 			Cart cart = (Cart) session.getAttribute("cart");
 			if (cart != null) {
 				cart.removeItem(productId);
@@ -69,10 +68,10 @@ public class CartPageController {
 			} else {
 				System.out.println("No products are in the cart");
 			}
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			}
-			return "error";
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return "error";
 	}
 
 	@PostMapping("/modosit/{productId}")

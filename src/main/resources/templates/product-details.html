@@ -5,16 +5,16 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title th:text="${product.name} + ' - Termék részletek'">Termék részletek</title>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css"/>
 	<style>
 		:root {
-			--navbar-bg: #DDB5B0;       /* Warm nude-pink */
-			--accent-color: #C8969C;     /* Mauve-rose */
-			--hover-color: #B8888F;      /* Deep rose-brown */
-			--pale-pink: #F2E5E3;        /* Warm cream-pink */
-			--dusty-pink: #E8D5D3;       /* Soft nude-pink */
-			--soft-pink: #EDDBDA;        /* Warm peachy-pink */
-			--text-dark: #4A4A4A;        /* Sophisticated dark text */
+			--navbar-bg: #DDB5B0; /* Warm nude-pink */
+			--accent-color: #C8969C; /* Mauve-rose */
+			--hover-color: #B8888F; /* Deep rose-brown */
+			--pale-pink: #F2E5E3; /* Warm cream-pink */
+			--dusty-pink: #E8D5D3; /* Soft nude-pink */
+			--soft-pink: #EDDBDA; /* Warm peachy-pink */
+			--text-dark: #4A4A4A; /* Sophisticated dark text */
 		}
 
 		body {
@@ -94,8 +94,14 @@
 		}
 
 		@keyframes fadeIn {
-			from { opacity: 0; transform: translateY(15px); }
-			to { opacity: 1; transform: translateY(0); }
+			from {
+				opacity: 0;
+				transform: translateY(15px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 
 		.hero-title {
@@ -147,7 +153,7 @@
 		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
 		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
 		<a href="/kosar" class="btn btn-ghost">Kosár</a>
-		<a href="/login" class="btn btn-ghost">Bejelentkezés</a>
+		<a href="/auth" class="btn btn-ghost">Bejelentkezés</a>
 	</div>
 </div>
 
@@ -179,7 +185,8 @@
 							<div class="price-tag p-4 rounded-xl mb-6">
 								<div class="flex items-center gap-2">
 									<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
+										<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+													d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1"></path>
 									</svg>
 									<span class="text-2xl font-bold" th:text="${product.price} + ' Ft'">Ár</span>
 								</div>
@@ -192,7 +199,6 @@
 							</div>
 						</div>
 
-						<!-- Add to Cart Form -->
 						<div class="card cart-form-card shadow-sm">
 							<div class="card-body p-6">
 								<form th:action="@{/kosar/hozzaad/{productId}(productId=${product.id})}" method="post">
@@ -216,7 +222,8 @@
 											</label>
 											<button type="submit" class="btn btn-add-to-cart font-bold text-lg px-8">
 												<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5-5M7 13l-2.5 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
+													<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+																d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5-5M7 13l-2.5 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
 												</svg>
 												Kosárba teszem
 											</button>
@@ -235,7 +242,8 @@
 <div class="fixed bottom-6 right-6 lg:hidden">
 	<button class="btn btn-circle floating-cart-btn text-white shadow-lg btn-lg">
 		<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5-5M7 13l-2.5 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
+			<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+						d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.5-5M7 13l-2.5 5M17 13v6a2 2 0 01-2 2H9a2 2 0 01-2-2v-6"></path>
 		</svg>
 	</button>
 </div>

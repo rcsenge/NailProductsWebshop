@@ -5,7 +5,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Kosár</title>
 	<script src="https://cdn.tailwindcss.com"></script>
-	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css"/>
 	<style>
 		:root {
 			--navbar-bg: #DDB5B0;
@@ -68,8 +68,14 @@
 		}
 
 		@keyframes fadeIn {
-			from { opacity: 0; transform: translateY(15px); }
-			to { opacity: 1; transform: translateY(0); }
+			from {
+				opacity: 0;
+				transform: translateY(15px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
 		}
 
 		.price-tag {
@@ -172,7 +178,7 @@
 		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
 		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
 		<a href="/kosar" class="btn btn-ghost">Kosár</a>
-		<a href="/login" class="btn btn-ghost">Bejelentkezés</a>
+		<a href="/auth" class="btn btn-ghost">Bejelentkezés</a>
 	</div>
 </div>
 
@@ -204,7 +210,7 @@
 								<div class="flex items-center gap-4">
 									<img th:src="@{'/images/products/' + ${item.product.imageFile}}"
 											 alt="Termék képe"
-											 class="product-image w-16 h-16 object-cover" />
+											 class="product-image w-16 h-16 object-cover"/>
 									<div>
 										<h3 class="font-medium text-gray-900" th:text="${item.product.name}">Termék neve</h3>
 									</div>
@@ -223,7 +229,7 @@
 												 name="quantity"
 												 min="1"
 												 th:value="${item.quantity}"
-												 class="quantity-input w-20 px-3 py-2 text-center" />
+												 class="quantity-input w-20 px-3 py-2 text-center"/>
 								</form>
 							</td>
 							<td class="text-center py-4 px-4">
@@ -236,7 +242,8 @@
 											style="display:inline;">
 									<button type="submit" class="btn btn-sm btn-remove" title="Törlés">
 										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+														d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
 										</svg>
 									</button>
 								</form>
@@ -252,7 +259,7 @@
 					<div class="flex gap-4">
 						<img th:src="@{'/images/products/' + ${item.product.imageFile}}"
 								 alt="Termék képe"
-								 class="product-image w-20 h-20 object-cover flex-shrink-0" />
+								 class="product-image w-20 h-20 object-cover flex-shrink-0"/>
 
 						<div class="flex-1 min-w-0">
 							<h3 class="font-medium text-gray-900 mb-2 truncate" th:text="${item.product.name}">Termék neve</h3>
@@ -282,14 +289,15 @@
 												 name="quantity"
 												 min="1"
 												 th:value="${item.quantity}"
-												 class="quantity-input w-16 px-2 py-1 text-center text-sm" />
+												 class="quantity-input w-16 px-2 py-1 text-center text-sm"/>
 								</form>
 
 								<form th:action="@{/kosar/torol/{productId}(productId=${item.product.id})}"
 											method="post">
 									<button type="submit" class="btn btn-sm btn-remove" title="Törlés">
 										<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
+											<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+														d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path>
 										</svg>
 									</button>
 								</form>
@@ -327,7 +335,8 @@
 			<div th:if="${#lists.isEmpty(cart.items)}" class="empty-cart rounded-xl p-12 text-center">
 				<div class="max-w-md mx-auto">
 					<svg class="w-24 h-24 mx-auto text-gray-300 mb-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H19M7 13v4a2 2 0 002 2h4m-6-2v2a2 2 0 002 2h2m2-4h.01m1.99 0h.01"></path>
+						<path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+									d="M3 3h2l.4 2M7 13h10l4-8H5.4m0 0L7 13m0 0l-2.293 2.293c-.63.63-.184 1.707.707 1.707H19M7 13v4a2 2 0 002 2h4m-6-2v2a2 2 0 002 2h2m2-4h.01m1.99 0h.01"></path>
 					</svg>
 					<h3 class="text-2xl font-semibold text-gray-600 mb-4">A kosár üres</h3>
 					<p class="text-gray-500 mb-6">Még nem adtál hozzá terméket a kosaradhoz.</p>
@@ -344,11 +353,11 @@
 </main>
 
 <script>
-	document.addEventListener('DOMContentLoaded', function() {
+	document.addEventListener('DOMContentLoaded', function () {
 		const quantityInputs = document.querySelectorAll('.quantity-input');
 
 		quantityInputs.forEach(input => {
-			input.addEventListener('change', function() {
+			input.addEventListener('change', function () {
 				this.style.opacity = '0.6';
 				this.style.pointerEvents = 'none';
 			});

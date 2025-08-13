@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" data-theme="cupcake">
+<head>
+	<meta charset="UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<title>Regisztráció</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css"/>
+	<style>
+		:root {
+			--navbar-bg: #DDB5B0;
+			--accent-color: #C8969C;
+			--hover-color: #B8888F;
+			--pale-pink: #F2E5E3;
+			--dusty-pink: #E8D5D3;
+			--soft-pink: #EDDBDA;
+			--text-dark: #4A4A4A;
+		}
+
+		.custom-navbar {
+			background-color: var(--navbar-bg);
+			box-shadow: 0 2px 12px rgba(221, 181, 176, 0.2);
+		}
+
+		.custom-navbar .navbar-center a {
+			color: white;
+			font-weight: 500;
+			font-size: 1rem;
+			transition: all 0.3s ease;
+			padding: 0.75rem 1.25rem;
+			border-radius: 6px;
+		}
+
+		.custom-navbar .navbar-center a:hover {
+			background-color: rgba(255, 255, 255, 0.15);
+			transform: translateY(-1px);
+		}
+
+		.hero-title {
+			color: var(--text-dark);
+			text-shadow: 0 2px 4px rgba(200, 150, 156, 0.2);
+		}
+
+		.fade-in {
+			animation: fadeIn 0.6s ease-out;
+		}
+
+		@keyframes fadeIn {
+			from {
+				opacity: 0;
+				transform: translateY(15px);
+			}
+			to {
+				opacity: 1;
+				transform: translateY(0);
+			}
+		}
+
+		.btn-primary {
+			background-color: var(--accent-color);
+			border-color: var(--accent-color);
+			color: white;
+		}
+
+		.btn-primary:hover {
+			background-color: var(--hover-color);
+			border-color: var(--hover-color);
+			transform: translateY(-1px);
+		}
+
+		.input:focus, .textarea:focus {
+			border-color: var(--accent-color);
+			box-shadow: 0 0 0 2px rgba(200, 150, 156, 0.1);
+		}
+
+		.form-input {
+			border: 1px solid rgba(200, 150, 156, 0.2);
+			transition: all 0.3s ease;
+		}
+
+		.form-input:focus {
+			border-color: var(--accent-color);
+			box-shadow: 0 0 0 2px rgba(200, 150, 156, 0.1);
+		}
+
+		.signup-card {
+			background-color: white;
+			border: 1px solid rgba(200, 150, 156, 0.15);
+			box-shadow: 0 8px 32px rgba(200, 150, 156, 0.12);
+			max-width: 600px;
+			width: 100%;
+			padding: 3rem;
+			box-sizing: border-box;
+			margin: 0 auto; /* középre igazítás */
+		}
+
+		.signup-container {
+			display: flex;
+			justify-content: center;
+			align-items: flex-start; /* felülről induljon, ne középről */
+			min-height: calc(100vh - 200px); /* teljes magasság mínusz navbar és egyéb */
+			width: 100%;
+			padding: 2rem 1rem; /* körülöttes padding */
+		}
+
+		.signup-control {
+			margin-bottom: 1.5rem; /* nagyobb távolság a mezők között */
+		}
+
+		@media (max-width: 768px) {
+			.signup-card {
+				max-width: 100%;
+				margin: 0 1rem;
+				padding: 2rem;
+			}
+
+			.signup-container {
+				padding: 1rem;
+			}
+		}
+
+		@media (max-width: 480px) {
+			.signup-card {
+				padding: 1.5rem;
+			}
+		}
+	</style>
+</head>
+<body>
+<div class="navbar custom-navbar fixed top-0 z-50 px-4">
+	<div class="navbar-center mx-auto max-w-4xl flex gap-1">
+		<a href="/" class="btn btn-ghost">Kezdőlap</a>
+		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
+		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
+		<a href="/kosar" class="btn btn-ghost">Kosár</a>
+		<a href="/auth" class="btn btn-ghost">Regisztráció</a>
+	</div>
+</div>
+
+<main class="pt-24 pb-12">
+	<div class="max-w-6xl mx-auto px-4">
+		<div class="text-center mb-8 fade-in">
+			<h1 class="text-4xl md:text-5xl font-bold hero-title mb-4">
+				Regisztráció
+			</h1>
+		</div>
+	</div>
+
+	<div class="signup-container">
+		<div class="fade-in w-full max-w-2xl">
+			<div class="signup-card rounded-xl">
+				<form th:action="@{/auth/regisztracio}" method="post" id="signupForm">
+
+					<div class="signup-control">
+						<label class="label" for="last-name">
+							<span class="label-text font-medium text-gray-700">Vezetéknév:</span>
+							<span class="label-text-alt text-red-500">*</span>
+						</label>
+						<input type="text"
+									 id="last-name"
+									 name="lastName"
+									 required
+									 class="form-input input input-bordered w-full"/>
+					</div>
+
+					<div class="signup-control">
+						<label class="label" for="first-name">
+							<span class="label-text font-medium text-gray-700">Keresztnév:</span>
+							<span class="label-text-alt text-red-500">*</span>
+						</label>
+						<input type="text"
+									 id="first-name"
+									 name="firstName"
+									 required
+									 class="form-input input input-bordered w-full"/>
+					</div>
+
+					<div class="signup-control">
+						<label class="label" for="username">
+							<span class="label-text font-medium text-gray-700">Felhasználónév:</span>
+							<span class="label-text-alt text-red-500">*</span>
+						</label>
+						<input type="text"
+									 id="username"
+									 name="username"
+									 required
+									 class="form-input input input-bordered w-full"/>
+					</div>
+
+					<div class="signup-control">
+						<label class="label" for="email">
+							<span class="label-text font-medium text-gray-700">E-mail cím:</span>
+							<span class="label-text-alt text-red-500">*</span>
+						</label>
+						<input type="email"
+									 id="email"
+									 name="email"
+									 required
+									 placeholder="pelda@email.com"
+									 class="form-input input input-bordered w-full"/>
+					</div>
+
+					<div class="signup-control">
+						<label class="label" for="phone-number">
+							<span class="label-text font-medium text-gray-700">Telefonszám:</span>
+							<span class="label-text-alt text-red-500">*</span>
+						</label>
+						<input type="tel"
+									 id="phone-number"
+									 name="phoneNumber"
+									 required
+									 placeholder="06301112222"
+									 class="form-input input input-bordered w-full"/>
+					</div>
+
+					<div class="signup-control">
+						<label class="label" for="password">
+							<span class="label-text font-medium text-gray-700">Jelszó:</span>
+							<span class="label-text-alt text-red-500">*</span>
+						</label>
+						<input type="password"
+									 id="password"
+									 name="password"
+									 required
+									 class="form-input input input-bordered w-full"/>
+					</div>
+
+					<div class="signup-control mt-8">
+						<button type="submit" class="btn btn-primary btn-lg w-full">
+							<svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+								<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+											d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8"></path>
+							</svg>
+							Regisztráció
+						</button>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</main>
+</body>
+</html>
