@@ -5,69 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Regisztráció</title>
 	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="icon" href="/images/icon/favicon.png" type="image/jpeg">
 	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/css/styles.css" rel="stylesheet" type="text/css"/>
 	<style>
-		:root {
-			--navbar-bg: #DDB5B0;
-			--accent-color: #C8969C;
-			--hover-color: #B8888F;
-			--pale-pink: #F2E5E3;
-			--dusty-pink: #E8D5D3;
-			--soft-pink: #EDDBDA;
-			--text-dark: #4A4A4A;
-		}
-
-		.custom-navbar {
-			background-color: var(--navbar-bg);
-			box-shadow: 0 2px 12px rgba(221, 181, 176, 0.2);
-		}
-
-		.custom-navbar .navbar-center a {
-			color: white;
-			font-weight: 500;
-			font-size: 1rem;
-			transition: all 0.3s ease;
-			padding: 0.75rem 1.25rem;
-			border-radius: 6px;
-		}
-
-		.custom-navbar .navbar-center a:hover {
-			background-color: rgba(255, 255, 255, 0.15);
-			transform: translateY(-1px);
-		}
-
-		.hero-title {
-			color: var(--text-dark);
-			text-shadow: 0 2px 4px rgba(200, 150, 156, 0.2);
-		}
-
-		.fade-in {
-			animation: fadeIn 0.6s ease-out;
-		}
-
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-				transform: translateY(15px);
-			}
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-
-		.btn-primary {
-			background-color: var(--accent-color);
-			border-color: var(--accent-color);
-			color: white;
-		}
-
-		.btn-primary:hover {
-			background-color: var(--hover-color);
-			border-color: var(--hover-color);
-			transform: translateY(-1px);
-		}
-
 		.input:focus, .textarea:focus {
 			border-color: var(--accent-color);
 			box-shadow: 0 0 0 2px rgba(200, 150, 156, 0.1);
@@ -91,20 +32,20 @@
 			width: 100%;
 			padding: 3rem;
 			box-sizing: border-box;
-			margin: 0 auto; /* középre igazítás */
+			margin: 0 auto;
 		}
 
 		.signup-container {
 			display: flex;
 			justify-content: center;
-			align-items: flex-start; /* felülről induljon, ne középről */
-			min-height: calc(100vh - 200px); /* teljes magasság mínusz navbar és egyéb */
+			align-items: flex-start;
+			min-height: calc(100vh - 200px);
 			width: 100%;
-			padding: 2rem 1rem; /* körülöttes padding */
+			padding: 2rem 1rem;
 		}
 
 		.signup-control {
-			margin-bottom: 1.5rem; /* nagyobb távolság a mezők között */
+			margin-bottom: 1.5rem;
 		}
 
 		@media (max-width: 768px) {
@@ -133,13 +74,13 @@
 		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
 		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
 		<a href="/kosar" class="btn btn-ghost">Kosár</a>
-		<a href="/auth" class="btn btn-ghost">Regisztráció</a>
+		<a href="/auth/login" class="btn btn-ghost">Bejelentkezés</a>
 	</div>
 </div>
 
 <main class="pt-24 pb-12">
 	<div class="max-w-6xl mx-auto px-4">
-		<div class="text-center mb-8 fade-in">
+		<div class="text-center mb-8">
 			<h1 class="text-4xl md:text-5xl font-bold hero-title mb-4">
 				Regisztráció
 			</h1>
@@ -147,7 +88,7 @@
 	</div>
 
 	<div class="signup-container">
-		<div class="fade-in w-full max-w-2xl">
+		<div class="w-full max-w-2xl">
 			<div class="signup-card rounded-xl">
 				<form th:action="@{/auth/regisztracio}" method="post" id="signupForm">
 

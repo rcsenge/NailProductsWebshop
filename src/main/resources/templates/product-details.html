@@ -5,42 +5,10 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title th:text="${product.name} + ' - Termék részletek'">Termék részletek</title>
 	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="icon" href="/images/icon/favicon.png" type="image/jpeg">
 	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/css/styles.css" rel="stylesheet" type="text/css"/>
 	<style>
-		:root {
-			--navbar-bg: #DDB5B0; /* Warm nude-pink */
-			--accent-color: #C8969C; /* Mauve-rose */
-			--hover-color: #B8888F; /* Deep rose-brown */
-			--pale-pink: #F2E5E3; /* Warm cream-pink */
-			--dusty-pink: #E8D5D3; /* Soft nude-pink */
-			--soft-pink: #EDDBDA; /* Warm peachy-pink */
-			--text-dark: #4A4A4A; /* Sophisticated dark text */
-		}
-
-		body {
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background-color: #FAFAFA;
-		}
-
-		.custom-navbar {
-			background-color: var(--navbar-bg);
-			box-shadow: 0 2px 12px rgba(221, 181, 176, 0.2);
-		}
-
-		.custom-navbar .navbar-center a {
-			color: white;
-			font-weight: 500;
-			font-size: 1rem;
-			transition: all 0.3s ease;
-			padding: 0.75rem 1.25rem;
-			border-radius: 6px;
-		}
-
-		.custom-navbar .navbar-center a:hover {
-			background-color: rgba(255, 255, 255, 0.15);
-			transform: translateY(-1px);
-		}
-
 		.product-card {
 			background-color: white;
 			border: 1px solid rgba(200, 150, 156, 0.15);
@@ -89,26 +57,6 @@
 			box-shadow: 0 0 0 2px rgba(200, 150, 156, 0.1);
 		}
 
-		.fade-in {
-			animation: fadeIn 0.6s ease-out;
-		}
-
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-				transform: translateY(15px);
-			}
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-
-		.hero-title {
-			color: var(--text-dark);
-			text-shadow: 0 2px 4px rgba(200, 150, 156, 0.2);
-		}
-
 		.title-decoration {
 			width: 60px;
 			height: 2px;
@@ -127,13 +75,11 @@
 			line-height: 1.7;
 		}
 
-		/* Clean focus states */
 		.input:focus, .select:focus {
 			border-color: var(--accent-color);
 			box-shadow: 0 0 0 2px rgba(200, 150, 156, 0.1);
 		}
 
-		/* Mobile floating button styling */
 		.floating-cart-btn {
 			background-color: var(--accent-color);
 			box-shadow: 0 8px 25px rgba(200, 150, 156, 0.4);
@@ -153,20 +99,20 @@
 		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
 		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
 		<a href="/kosar" class="btn btn-ghost">Kosár</a>
-		<a href="/auth" class="btn btn-ghost">Bejelentkezés</a>
+		<a href="/auth/bejelentkezes" class="btn btn-ghost">Bejelentkezés</a>
 	</div>
 </div>
 
 <main class="pt-24 pb-12 px-4">
 	<div class="max-w-6xl mx-auto">
-		<div class="text-center mb-12 fade-in">
+		<div class="text-center mb-12">
 			<h1 class="text-4xl md:text-5xl font-bold hero-title mb-4" th:text="${product.name}">
 				Termék neve
 			</h1>
 			<div class="title-decoration"></div>
 		</div>
 
-		<div class="card product-card shadow-sm rounded-xl fade-in">
+		<div class="card product-card shadow-sm rounded-xl">
 			<div class="card-body p-8">
 				<div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
 

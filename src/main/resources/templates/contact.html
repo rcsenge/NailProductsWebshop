@@ -5,78 +5,14 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
 	<title>Kapcsolat</title>
 	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="icon" href="/images/icon/favicon.png" type="image/jpeg">
 	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/css/styles.css" rel="stylesheet" type="text/css"/>
 	<style>
-		:root {
-			--navbar-bg: #DDB5B0;
-			--accent-color: #C8969C;
-			--hover-color: #B8888F;
-			--pale-pink: #F2E5E3;
-			--dusty-pink: #E8D5D3;
-			--soft-pink: #EDDBDA;
-			--text-dark: #4A4A4A;
-		}
-
-		body {
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background-color: #FAFAFA;
-		}
-
-		.custom-navbar {
-			background-color: var(--navbar-bg);
-			box-shadow: 0 2px 12px rgba(221, 181, 176, 0.2);
-		}
-
-		.custom-navbar .navbar-center a {
-			color: white;
-			font-weight: 500;
-			font-size: 1rem;
-			transition: all 0.3s ease;
-			padding: 0.75rem 1.25rem;
-			border-radius: 6px;
-		}
-
-		.custom-navbar .navbar-center a:hover {
-			background-color: rgba(255, 255, 255, 0.15);
-			transform: translateY(-1px);
-		}
-
 		.contact-card {
 			background-color: white;
 			border: 1px solid rgba(200, 150, 156, 0.15);
 			box-shadow: 0 2px 12px rgba(200, 150, 156, 0.08);
-		}
-
-		.hero-title {
-			color: var(--text-dark);
-			text-shadow: 0 2px 4px rgba(200, 150, 156, 0.2);
-		}
-
-		.fade-in {
-			animation: fadeIn 0.6s ease-out;
-		}
-
-		@keyframes fadeIn {
-			from {
-				opacity: 0;
-				transform: translateY(15px);
-			}
-			to {
-				opacity: 1;
-				transform: translateY(0);
-			}
-		}
-
-		.btn-primary {
-			background-color: var(--accent-color);
-			border-color: var(--accent-color);
-			color: white;
-		}
-
-		.btn-primary:hover {
-			background-color: var(--hover-color);
-			border-color: var(--hover-color);
-			transform: translateY(-1px);
 		}
 
 		.input:focus, .textarea:focus {
@@ -142,11 +78,6 @@
 			}
 		}
 
-		.form-section {
-			backdrop-filter: blur(10px);
-			background: rgba(255, 255, 255, 0.9);
-		}
-
 		@media (max-width: 768px) {
 			.contact-grid {
 				grid-template-columns: 1fr;
@@ -161,13 +92,13 @@
 		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
 		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
 		<a href="/kosar" class="btn btn-ghost">Kosár</a>
-		<a href="/auth" class="btn btn-ghost">Bejelentkezés</a>
+		<a href="/auth/bejelentkezes" class="btn btn-ghost">Bejelentkezés</a>
 	</div>
 </div>
 
 <main class="pt-24 pb-12 px-4">
 	<div class="max-w-6xl mx-auto">
-		<div class="text-center mb-12 fade-in">
+		<div class="text-center mb-12">
 			<h1 class="text-4xl md:text-5xl font-bold hero-title mb-4">
 				Kapcsolat
 			</h1>
@@ -178,7 +109,7 @@
 		</div>
 
 		<div class="grid lg:grid-cols-2 gap-12 contact-grid">
-			<div class="fade-in">
+			<div>
 				<div class="contact-card rounded-xl p-8">
 					<h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
 						Írj nekünk
@@ -246,7 +177,7 @@
 				</div>
 			</div>
 
-			<div class="fade-in space-y-6">
+			<div class="space-y-6">
 				<div class="contact-card rounded-xl p-8">
 					<h2 class="text-2xl font-bold text-gray-800 mb-6 text-center">
 						Elérhetőségek
@@ -362,10 +293,6 @@
 		`;
 		submitBtn.disabled = true;
 
-	});
-
-	document.querySelectorAll('.fade-in').forEach((element, index) => {
-		element.style.animationDelay = `${index * 0.1}s`;
 	});
 
 	document.querySelectorAll('.form-input').forEach(input => {
