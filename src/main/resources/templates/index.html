@@ -1,83 +1,352 @@
 <!DOCTYPE html>
-<html lang="hu">
+<html lang="hu" xmlns:th="http://www.thymeleaf.org" data-theme="cupcake">
 <head>
 	<meta charset="UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1"/>
+	<link rel="icon" href="/images/icon/favicon.png" type="image/jpeg">
 	<title>Nailstore Kezdőlap</title>
+	<script src="https://cdn.tailwindcss.com"></script>
+	<link rel="icon" href="/images/icon/favicon.png" type="image/jpeg">
+	<link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css"/>
+	<link href="/css/styles.css" rel="stylesheet" type="text/css"/>
 	<style>
-		* {
-			margin: 0;
-			padding: 0;
-			box-sizing: border-box;
-		}
-
-		body {
-			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-			background-color: #fefefe;
-			color: #333;
-			line-height: 1.6;
-			min-height: 100vh;
-			padding-top: 70px;
-		}
-
-		#navbar {
-			background-color: #dcbbb3;
-			width: 100%;
-			padding: 15px 0;
-			position: fixed;
-			top: 0;
-			left: 0;
-			z-index: 1000;
-		}
-
-		nav {
-			max-width: 900px;
-			margin: 0 auto;
+		.hero-section {
+			padding: 4rem 2rem;
 			text-align: center;
+			position: relative;
+			overflow: hidden;
 		}
 
-		nav a {
-			margin: 0 20px;
-			text-decoration: none;
-			color: white;
-			font-weight: 600;
-			font-size: 1.1rem;
-			transition: color 0.3s ease;
-		}
-
-		nav a:hover, nav a:focus {
-			color: #f0d6db;
-			outline: none;
-		}
-
-		main {
-			max-width: 900px;
+		.hero-content {
+			max-width: 600px;
 			margin: 0 auto;
-			padding: 20px 15px;
-			text-align: center;
+			z-index: 10;
+			position: relative;
 		}
 
-		h1 {
-			color: #4d4d4d;
-			margin-bottom: 25px;
+		.products-section {
+			padding: 4rem 2rem;
+		}
+
+		.section-title {
+			text-align: center;
+			font-size: 2.5rem;
 			font-weight: 700;
-			font-size: 2rem;
-			letter-spacing: 0.05em;
+			color: var(--text-dark);
+			margin-bottom: 3rem;
+		}
+
+		.product-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 2rem;
+			max-width: 1000px;
+			margin: 0 auto;
+		}
+
+		.product-card {
+			text-align: center;
+			background: white;
+			border-radius: 16px;
+			overflow: hidden;
+			box-shadow: 0 4px 15px rgba(200, 150, 156, 0.1);
+			transition: all 0.3s ease;
+		}
+
+		.product-card:hover {
+			transform: translateY(-5px);
+			box-shadow: 0 8px 25px rgba(200, 150, 156, 0.2);
+		}
+
+		.promo-section {
+			background: var(--dusty-pink);
+			padding: 2rem 2rem;
+			display: grid;
+			grid-template-columns: 1fr 1fr;
+			gap: 3rem;
+			align-items: center;
+			max-width: 1000px;
+			margin: 0 auto;
+			border-radius: 16px;
+		}
+
+		.promo-content h2 {
+			font-size: 2.5rem;
+			font-weight: 700;
+			color: var(--text-dark);
+			margin-bottom: 1rem;
+		}
+
+		.promo-content .discount {
+			font-size: 1.5rem;
+			font-weight: 600;
+			color: var(--text-dark);
+			margin-bottom: 1rem;
+		}
+
+		.promo-content p {
+			color: var(--text-dark);
+			margin-bottom: 2rem;
+			opacity: 0.8;
+		}
+
+		.testimonial-section {
+			padding: 4rem 2rem;
+			text-align: center;
+		}
+
+		.testimonial-grid {
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+			gap: 2rem;
+			max-width: 800px;
+			margin: 2rem auto 0;
+		}
+
+		.testimonial-card {
+			padding: 2rem;
+			background: var(--pale-pink);
+			border-radius: 16px;
+		}
+
+		.testimonial-title {
+			font-size: 1.2rem;
+			font-weight: 600;
+			color: var(--text-dark);
+			margin-bottom: 1rem;
+		}
+
+		.footer {
+			background: var(--dusty-pink);
+			padding: 3rem 2rem 2rem;
+		}
+
+		.footer-content {
+			max-width: 1200px;
+			margin: 0 auto;
+			display: grid;
+			grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+			gap: 2rem;
+		}
+
+		.footer-section h3 {
+			font-size: 1.1rem;
+			font-weight: 600;
+			color: var(--text-dark);
+			margin-bottom: 1rem;
+		}
+
+		.footer-section p, .footer-section li {
+			color: var(--text-dark);
+			opacity: 0.8;
+			font-size: 0.9rem;
+			line-height: 1.6;
+		}
+
+		.footer-section ul {
+			list-style: none;
+			padding: 0;
+		}
+
+		.footer-section ul li {
+			margin-bottom: 0.5rem;
+		}
+
+		.social-icons {
+			display: flex;
+			gap: 1rem;
+			margin-top: 1rem;
+		}
+
+		.social-icon {
+			width: 40px;
+			height: 40px;
+			background: var(--hover-color);
+			border-radius: 50%;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			color: white;
+			text-decoration: none;
+			transition: all 0.3s ease;
+		}
+
+		.social-icon:hover {
+			background: var(--text-dark);
+			transform: translateY(-2px);
+		}
+
+		@media (max-width: 768px) {
+			.section-title {
+				font-size: 2rem;
+			}
+
+			.promo-section {
+				grid-template-columns: 1fr;
+				text-align: center;
+			}
+
+			.promo-content h2 {
+				font-size: 2rem;
+			}
+		}
+
+		.product-card {
+			background-color: white;
+			border: 1px solid rgba(200, 150, 156, 0.15);
+			transition: all 0.3s ease;
+			box-shadow: 0 2px 8px rgba(200, 150, 156, 0.08);
+		}
+
+		.product-card:hover {
+			transform: translateY(-4px);
+			box-shadow: 0 8px 25px rgba(200, 150, 156, 0.15);
+			border-color: rgba(200, 150, 156, 0.3);
+		}
+
+		.product-card img {
+			transition: transform 0.3s ease;
+		}
+
+		.product-card:hover img {
+			transform: scale(1.02);
+		}
+
+		.promo-section img {
+			height: 80%;
 		}
 	</style>
 </head>
-<body>
-<div id="navbar">
-	<nav>
-		<a href="/">Kezdőlap</a>
-		<a href="/termekek-oldal">Termékek</a>
-		<a href="/kapcsolat">Kapcsolat</a>
-		<a href="/kosar">Kosár</a>
-		<a href="/auth">Bejelentkezés</a>
-	</nav>
+<body class="min-h-screen">
+
+<div class="navbar custom-navbar fixed top-0 z-50 px-4">
+	<div class="navbar-center mx-auto max-w-4xl flex gap-1">
+		<a href="/" class="btn btn-ghost">Kezdőlap</a>
+		<a href="/termekek-oldal" class="btn btn-ghost">Termékek</a>
+		<a href="/kapcsolat" class="btn btn-ghost">Kapcsolat</a>
+		<a href="/kosar" class="btn btn-ghost">Kosár</a>
+		<a href="/auth/bejelentkezes" class="btn btn-ghost">Bejelentkezés</a>
+	</div>
 </div>
+
 <main>
-	<h1>Üdv a Nailstore webshopban!</h1>
+	<section class="hero-section">
+		<div
+				class="hero min-h-screen"
+				style="background-image: url('/images/nails.jpg');">
+			<div class="hero-overlay bg-white bg-opacity-40"></div>
+			<div class="hero-content text-center">
+				<div class="max-w-2xl px-6">
+					<h1 class="mb-5 text-4xl md:text-5xl font-bold" style="color: var(--text-dark);">
+						Minden, amire a tökéletes körmökhöz szükséged van
+					</h1>
+					<p class="mb-5 text-lg" style="color: var(--text-dark);">
+						Legyen szó hétköznapi eleganciáról vagy különleges alkalmakról,
+						nálunk megtalálod a legtrendibb színeket, tartós alapanyagokat és a legprofibb eszközöket.
+					</p>
+					<a href="/termekek-oldal" class="btn btn-primary btn-lg">
+						Fedezd fel a termékeket
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="products-section">
+
+		<h2 class="section-title">Legkeresettebb termékeink</h2>
+
+		<div class="product-grid">
+			<div class="product-card card shadow-sm rounded-xl overflow-hidden"
+					 th:each="product : ${bestSellers}">
+				<figure class="px-4 pt-4">
+					<img th:src="${'/images/products/' + product.imageFile}"
+							 alt="Termék képe"
+							 class="rounded-lg w-full h-48 object-cover"/>
+				</figure>
+
+				<div class="card-body items-center text-center p-4">
+					<h2 class="card-title text-base mb-3 text-center">
+						<a th:href="@{/termekek-oldal/{slug}(slug=${product.slug})}"
+							 th:text="${product.name}"
+							 class="product-link">
+						</a>
+					</h2>
+
+					<div class="flex items-center justify-center gap-1 mb-4">
+						<span class="price-tag text-lg font-semibold" th:text="${product.price}">Ár</span>
+						<span class="text-sm text-gray-500">Ft</span>
+					</div>
+
+					<div class="card-actions">
+						<a th:href="@{/termekek-oldal/{slug}(slug=${product.slug})}"
+							 class="btn btn-sm btn-primary">
+							Részletek
+						</a>
+					</div>
+
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="promo-section">
+		<div class="promo-content px-4">
+			<h2>Nyár végi leárazásaink</h2>
+			<div class="discount">Akár 40%-os kedvezmények!</div>
+			<button class="btn btn-primary">Leárazások</button>
+		</div>
+		<figure>
+			<img src="/images/promo.jpeg"
+					 alt="Termék képe"
+					 class="rounded-lg object-cover w-64 h-auto ml-auto"/>
+		</figure>
+	</section>
+
+	<section class="testimonial-section">
+		<div class="testimonial-grid">
+			<div class="testimonial-card">
+				<h3 class="testimonial-title">Fantaszikusak a termékek!</h3>
+				<p>A legjobb körömzselék!</p>
+				<div>⭐⭐⭐⭐⭐</div>
+			</div>
+			<div class="testimonial-card">
+				<h3 class="testimonial-title">Megbízható!</h3>
+				<p>Gyors a megrendelés és szinte azonnal át is vehető!</p>
+			</div>
+		</div>
+	</section>
+
+	<footer class="footer">
+		<div class="footer-content">
+			<div class="footer-section">
+				<div class="logo-text">NailProductsWebshop</div>
+				<p>1234 Budapest, Példa utca 12.</p>
+				<p>H-P: 8:00 - 18:00</p>
+				<p>Sz: 9:00 - 16:00</p>
+				<p>Email: pelda@gmail.com</p>
+				<p>Tel: +36 1 234 5678</p>
+			</div>
+			<div class="footer-section">
+				<h3>Gyors elérés:</h3>
+				<ul>
+					<li>Vásárlás</li>
+					<li>Kapcsolat</li>
+					<li>Gyakori kérdések</li>
+					<li>ÁSZF</li>
+					<li>Adatvédelmi szabályzat</li>
+				</ul>
+			</div>
+			<div class="footer-section">
+				<h3>Kövess minket:</h3>
+				<div class="social-icons">
+					<a href="#" class="social-icon">f</a>
+					<a href="#" class="social-icon">i</a>
+				</div>
+			</div>
+		</div>
+	</footer>
+
 </main>
 </body>
 </html>
