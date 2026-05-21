@@ -1,12 +1,12 @@
 # Nailstore Webshop
 
-This is a webshop project developed as a commissioned work for a client. The goal is to build a simple, user-friendly online store focused on nail care products with features like product browsing, searching, and order management.
+The goal of this project is to build a simple, user-friendly online store focused on nail care products with features like product browsing, searching, and order management.
 
 ## Current Status
 
 The project has evolved significantly from its initial setup and now includes several working features:
 
-### ✅ Implemented Features
+### Implemented Features
 
 - **Product Management**: Complete product listing with images, descriptions, and prices
 - **Product Details Page**: Individual product pages with detailed information
@@ -19,13 +19,13 @@ The project has evolved significantly from its initial setup and now includes se
 - **Responsive Design**: Modern, mobile-first design with consistent styling across all pages
 - **User Interface**: Clean, professional design using DaisyUI and Tailwind CSS
 
-### 🚧 In Progress
+### In Progress
 
 - User authentication and authorization
 - Contact form functionality
 - Order placement system (in-store pickup)
 
-### 📋 Planned Features
+### Planned Features
 
 - Admin panel for managing products and orders
 - Order history and tracking
@@ -77,9 +77,3 @@ mvn spring-boot:run
 ```
 
 4. Access the application at `http://localhost:8080`
-
-## License
-
-This project is proprietary software. All rights reserved.
-
-© 2025 Rada Csenge. This entire codebase, including but not limited to backend logic, frontend implementation, database structure, design elements, styling, and visual components, is protected by copyright. Unauthorized use, reproduction, modification, or distribution is strictly prohibited.
